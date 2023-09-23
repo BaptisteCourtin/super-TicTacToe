@@ -1,12 +1,12 @@
+import React, { useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import { useState } from "react";
 
 import Home from "@pages/Home";
 import Details from "@pages/Details";
-import Navbar from "@components/Navbar";
-import Footer from "@components/Footer";
+import Navbar from "@components/nav-foot/Navbar";
+import Footer from "@components/nav-foot/Footer";
 
-function App() {
+const App = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   return (
@@ -21,6 +21,6 @@ function App() {
       <Footer />
     </div>
   );
-}
+};
 
 export default App;
