@@ -19,30 +19,21 @@ function Home() {
   ];
 
   const [xPlaying, setXPlaying] = useState(true);
-
-  const [board1, setBoard1] = useState(Array(9).fill(null));
-  const [board2, setBoard2] = useState(Array(9).fill(null));
-  const [board3, setBoard3] = useState(Array(9).fill(null));
-
-  const [board4, setBoard4] = useState(Array(9).fill(null));
-  const [board5, setBoard5] = useState(Array(9).fill(null));
-  const [board6, setBoard6] = useState(Array(9).fill(null));
-
-  const [board7, setBoard7] = useState(Array(9).fill(null));
-  const [board8, setBoard8] = useState(Array(9).fill(null));
-  const [board9, setBoard9] = useState(Array(9).fill(null));
-
   const [nextBoardId, setNextBoardId] = useState(100);
-  const [congrats, setCongrats] = useState(); // 100 de base pour pouvoir tout cliquer
 
+  const [congrats, setCongrats] = useState(); // 100 de base pour pouvoir tout cliquer
   const [scores, setScores] = useState({ xScore: 0, oScore: 0 });
-  const [bigBoard, setBigBoard] = useState(Array(9).fill(null));
-  const [bigGameOver, setBigGameOver] = useState(false);
+  const [gameOver, setGameOver] = useState(false);
+
+  const [myBigBoard, setMyBigBoard] = useState(
+    Array(9).fill(Array(9).fill(null))
+  );
+  const [winBoard, setWinBoard] = useState(Array(9).fill(null));
 
   // à chaque fois qu'une petite box est cliqué
-  const handleBoxClick = (board, boxIdx) => {
+  const handleBoxClick = (boardIdx, boxIdx) => {
     // se lance quand le switch trouve la bonne board
-    const updatedBoard = board.map((value, idx) => {
+    const updatedBoard = myBigBoard[boardIdx].map((value, idx) => {
       if (idx === boxIdx) {
         // si index de la box === index de la box touché
         return xPlaying ? "X" : "O";
@@ -52,63 +43,30 @@ function Home() {
       }
     });
 
+    // pour vérifier si au moins valeur du board n'est pas null
+    let isNotFull = myBigBoard[boxIdx].some((each) => each === null); // true si au moins une valeur null
+    if (!isNotFull) {
+      boxIdx = 100;
+    }
+
     // pour que le seul board cliquable soit le bon
     setNextBoardId(boxIdx);
 
-    // trouve la board qui à été utilisé
-    switch (board) {
-      case board1:
-        setBoard1(updatedBoard);
-        checkBoardFinish(0, updatedBoard);
-        break;
-      case board2:
-        setBoard2(updatedBoard);
-        checkBoardFinish(1, updatedBoard);
-        break;
-      case board3:
-        setBoard3(updatedBoard);
-        checkBoardFinish(2, updatedBoard);
-        break;
+    let newArr = [...myBigBoard];
+    newArr[boardIdx] = updatedBoard;
+    setMyBigBoard(newArr);
 
-      case board4:
-        setBoard4(updatedBoard);
-        checkBoardFinish(3, updatedBoard);
-        break;
-      case board5:
-        setBoard5(updatedBoard);
-        checkBoardFinish(4, updatedBoard);
-        break;
-      case board6:
-        setBoard6(updatedBoard);
-        checkBoardFinish(5, updatedBoard);
-        break;
-
-      case board7:
-        setBoard7(updatedBoard);
-        checkBoardFinish(6, updatedBoard);
-        break;
-      case board8:
-        setBoard8(updatedBoard);
-        checkBoardFinish(7, updatedBoard);
-        break;
-      case board9:
-        setBoard9(updatedBoard);
-        checkBoardFinish(8, updatedBoard);
-        break;
-
-      default:
-        break;
-    }
+    checkBoardFinish(boardIdx, updatedBoard);
   };
 
   // Check if either player has won the board
   const checkBoardFinish = (indexBoard, updatedBoard) => {
-    if (bigBoard[indexBoard] === null) {
+    if (winBoard[indexBoard] === null) {
       // si pas déjà de gagnant
       const winner = checkWinner(updatedBoard); // check if mini board win --- "X" ou "O"
 
       if (winner) {
-        const updatedBigBoard = bigBoard.map((value, idxB) => {
+        const updatedWinBoard = winBoard.map((value, idxB) => {
           if (idxB === indexBoard) {
             // si index de la box === index de la box touché
             return winner;
@@ -118,14 +76,14 @@ function Home() {
           }
         });
 
-        setBigBoard(updatedBigBoard);
+        setWinBoard(updatedWinBoard);
 
         // check si jeu fini (big board gagné)
-        const Bigwinner = checkWinner(updatedBigBoard); // check if mini board win --- "X" ou "O"
-        if (Bigwinner) {
-          setBigGameOver(true);
+        const theWinner = checkWinner(updatedWinBoard); // check if mini board win --- "X" ou "O"
+        if (theWinner) {
+          setGameOver(true);
 
-          if (Bigwinner === "O") {
+          if (theWinner === "O") {
             let { oScore } = scores;
             oScore += 1;
             setScores({ ...scores, oScore });
@@ -163,22 +121,11 @@ function Home() {
 
   // reset tout les boards
   const resetAllBoard = () => {
-    setBoard1(Array(9).fill(null));
-    setBoard2(Array(9).fill(null));
-    setBoard3(Array(9).fill(null));
-
-    setBoard4(Array(9).fill(null));
-    setBoard5(Array(9).fill(null));
-    setBoard6(Array(9).fill(null));
-
-    setBoard7(Array(9).fill(null));
-    setBoard8(Array(9).fill(null));
-    setBoard9(Array(9).fill(null));
-
-    setBigBoard(Array(9).fill(null));
+    setMyBigBoard(Array(9).fill(Array(9).fill(null)));
+    setWinBoard(Array(9).fill(null));
 
     setNextBoardId(100);
-    setBigGameOver(false);
+    setGameOver(false);
   };
 
   // reset les scores
@@ -194,71 +141,18 @@ function Home() {
       <Score scores={scores} xPlaying={xPlaying} />
 
       <section className="all-boards">
-        <Board
-          board={board1}
-          handleBoxClick={handleBoxClick}
-          bigBoard={bigBoard}
-          boardIdx={0}
-          nextBoardId={nextBoardId}
-        />
-        <Board
-          board={board2}
-          handleBoxClick={handleBoxClick}
-          bigBoard={bigBoard}
-          boardIdx={1}
-          nextBoardId={nextBoardId}
-        />
-        <Board
-          board={board3}
-          handleBoxClick={handleBoxClick}
-          bigBoard={bigBoard}
-          boardIdx={2}
-          nextBoardId={nextBoardId}
-        />
-
-        <Board
-          board={board4}
-          handleBoxClick={handleBoxClick}
-          bigBoard={bigBoard}
-          boardIdx={3}
-          nextBoardId={nextBoardId}
-        />
-        <Board
-          board={board5}
-          handleBoxClick={handleBoxClick}
-          bigBoard={bigBoard}
-          boardIdx={4}
-          nextBoardId={nextBoardId}
-        />
-        <Board
-          board={board6}
-          handleBoxClick={handleBoxClick}
-          bigBoard={bigBoard}
-          boardIdx={5}
-          nextBoardId={nextBoardId}
-        />
-
-        <Board
-          board={board7}
-          handleBoxClick={handleBoxClick}
-          bigBoard={bigBoard}
-          boardIdx={6}
-          nextBoardId={nextBoardId}
-        />
-        <Board
-          board={board8}
-          handleBoxClick={handleBoxClick}
-          bigBoard={bigBoard}
-          boardIdx={7}
-          nextBoardId={nextBoardId}
-        />
-        <Board
-          board={board9}
-          handleBoxClick={handleBoxClick}
-          bigBoard={bigBoard}
-          boardIdx={8}
-          nextBoardId={nextBoardId}
-        />
+        {myBigBoard.map((each, idx) => {
+          return (
+            <Board
+              key={idx}
+              boardIdx={idx}
+              winBoard={winBoard}
+              handleBoxClick={handleBoxClick}
+              nextBoardId={nextBoardId}
+              board={each}
+            />
+          );
+        })}
       </section>
 
       <p className="congrats">{congrats}</p>

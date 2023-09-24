@@ -3,15 +3,15 @@ import React from "react";
 import { Box } from "./Box";
 
 export const Board = ({
-  board,
-  handleBoxClick,
-  bigBoard,
   boardIdx,
+  handleBoxClick,
   nextBoardId,
+  board,
+  winBoard,
 }) => {
   const style =
-    bigBoard &&
-    (bigBoard[boardIdx] === "X" ? "x" : bigBoard[boardIdx] === "O" ? "o" : "");
+    winBoard &&
+    (winBoard[boardIdx] === "X" ? "x" : winBoard[boardIdx] === "O" ? "o" : "");
 
   const cliquable =
     nextBoardId === boardIdx
@@ -21,16 +21,20 @@ export const Board = ({
       : "";
 
   return (
-    <div className={`board ${style} ${cliquable}`}>
-      {board.map((value, idx) => {
-        return (
-          <Box
-            key={idx}
-            value={value}
-            handleBoxClick={() => value === null && handleBoxClick(board, idx)}
-          />
-        );
-      })}
-    </div>
+    board && (
+      <div className={`board ${style} ${cliquable}`}>
+        {board.map((eachValue, idx) => {
+          return (
+            <Box
+              key={idx}
+              value={eachValue}
+              handleBoxClick={() =>
+                eachValue === null && handleBoxClick(boardIdx, idx)
+              }
+            />
+          );
+        })}
+      </div>
+    )
   );
 };
