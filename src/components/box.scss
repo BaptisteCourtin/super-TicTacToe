@@ -1,27 +1,50 @@
 .box {
   background-color: #ffffff;
+  box-shadow: 0px 0px 8px var(--shadow);
+
   border: none;
-  border-radius: 10%;
-  box-shadow: 0px 0px 8px #888888;
+  border-radius: 8px;
+
   width: 3rem;
   height: 3rem;
-  margin: 0.5rem;
 
-  text-align: center;
-  font-size: 3em;
-  font-family: "Fredoka", sans-serif;
-  font-weight: bold;
   line-height: 3.25rem;
+
+  font-size: 3em;
+  text-align: center;
+  font-weight: bold;
+
+  &.x {
+    color: var(--Xcolor);
+  }
+
+  &.o {
+    color: var(--Ocolor);
+  }
+
+  &:hover {
+    box-shadow: 0px 0px 15px var(--shadow);
+  }
 }
 
-.x {
-  color: rgb(255, 70, 37);
+@media screen and (max-width: 630px) {
+  .box {
+    width: 2rem;
+    height: 2rem;
+
+    line-height: 1.5rem;
+
+    font-size: 2rem;
+  }
 }
 
-.o {
-  color: rgb(44, 135, 255);
-}
+@media screen and (max-width: 430px) {
+  .box {
+    width: 1.7rem;
+    height: 1.7rem;
 
-.box:hover {
-  box-shadow: 0px 0px 15px #888888;
+    line-height: 0.7rem;
+
+    font-size: 1.5rem;
+  }
 }

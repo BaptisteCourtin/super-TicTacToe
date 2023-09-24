@@ -10,7 +10,8 @@ export const Board = ({
   nextBoardId,
 }) => {
   const style =
-    bigBoard[boardIdx] === "X" ? "x" : bigBoard[boardIdx] === "O" ? "o" : "";
+    bigBoard &&
+    (bigBoard[boardIdx] === "X" ? "x" : bigBoard[boardIdx] === "O" ? "o" : "");
 
   const cliquable =
     nextBoardId === boardIdx

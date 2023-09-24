@@ -32,7 +32,7 @@ function Home() {
   const [board8, setBoard8] = useState(Array(9).fill(null));
   const [board9, setBoard9] = useState(Array(9).fill(null));
 
-  const [nextBoardId, setNextBoardId] = useState(100); // 100 de base pour pouvoir tout cliquer
+  const [nextBoardId, setNextBoardId] = useState(100);
   const [congrats, setCongrats] = useState(); // 100 de base pour pouvoir tout cliquer
 
   const [scores, setScores] = useState({ xScore: 0, oScore: 0 });
@@ -102,7 +102,6 @@ function Home() {
   };
 
   // Check if either player has won the board
-  // +> un gameOver par board
   const checkBoardFinish = (indexBoard, updatedBoard) => {
     if (bigBoard[indexBoard] === null) {
       // si pas déjà de gagnant
@@ -138,7 +137,7 @@ function Home() {
 
           // arrêter le jeu et ne plus pouvoir posé => pas de gagnant plusieurs fois
           setNextBoardId(400);
-          setCongrats(`Well Play ${xPlaying === true ? "X" : "O"}`);
+          setCongrats(`Well play ${xPlaying === true ? "X" : "O"}`);
         }
       }
     }
@@ -179,7 +178,6 @@ function Home() {
     setBigBoard(Array(9).fill(null));
 
     setNextBoardId(100);
-    setXPlaying(true);
     setBigGameOver(false);
   };
 
@@ -195,7 +193,7 @@ function Home() {
       <h1>SUPER Tic Tac Toe</h1>
       <Score scores={scores} xPlaying={xPlaying} />
 
-      <section className="all-borads">
+      <section className="all-boards">
         <Board
           board={board1}
           handleBoxClick={handleBoxClick}
@@ -263,14 +261,16 @@ function Home() {
         />
       </section>
 
-      <p>{congrats}</p>
+      <p className="congrats">{congrats}</p>
 
-      <button className="reset-btn" onClick={() => resetAllBoard()}>
-        Reset
-      </button>
-      <button className="reset-btn" onClick={() => resetScore()}>
-        Reset Score
-      </button>
+      <section className="all-reset">
+        <button className="reset-btn" onClick={() => resetScore()}>
+          Reset Score
+        </button>
+        <button className="reset-btn" onClick={() => resetAllBoard()}>
+          Reset Board
+        </button>
+      </section>
     </div>
   );
 }

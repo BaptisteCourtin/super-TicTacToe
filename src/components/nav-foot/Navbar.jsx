@@ -12,11 +12,15 @@ const Navbar = ({ setIsDarkMode, isDarkMode }) => {
     <div className="navbar">
       <nav>
         <NavLink to="/" onClick={() => retourHaut()}>
-          Accueil
+          Play
+        </NavLink>
+
+        <NavLink to="/normal" onClick={() => retourHaut()}>
+          Easy
         </NavLink>
 
         <NavLink to="/details" onClick={() => retourHaut()}>
-          Details
+          How ?
         </NavLink>
       </nav>
       <ToggleDarkLight setIsDarkMode={setIsDarkMode} isDarkMode={isDarkMode} />
