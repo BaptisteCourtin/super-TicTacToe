@@ -19,9 +19,9 @@ function Home() {
   ];
 
   const [xPlaying, setXPlaying] = useState(true);
-  const [nextBoardId, setNextBoardId] = useState(100);
+  const [nextBoardId, setNextBoardId] = useState(100); // 100 de base pour pouvoir tout cliquer
 
-  const [congrats, setCongrats] = useState(); // 100 de base pour pouvoir tout cliquer
+  const [congrats, setCongrats] = useState("");
   const [scores, setScores] = useState({ xScore: 0, oScore: 0 });
   const [gameOver, setGameOver] = useState(false);
 

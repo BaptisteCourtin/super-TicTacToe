@@ -10,8 +10,7 @@ export const Board = ({
   winBoard,
 }) => {
   const style =
-    winBoard &&
-    (winBoard[boardIdx] === "X" ? "x" : winBoard[boardIdx] === "O" ? "o" : "");
+    winBoard[boardIdx] === "X" ? "x" : winBoard[boardIdx] === "O" ? "o" : "";
 
   const cliquable =
     nextBoardId === boardIdx

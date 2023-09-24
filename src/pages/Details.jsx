@@ -44,6 +44,14 @@ function Details() {
           player will have to put an O somewhere on the top-right board.
         </li>
       </ul>
+
+      <h2>Specifications</h2>
+      <ul>
+        <li>
+          If the next move is on a board that is already complete, every boards
+          will be availables.
+        </li>
+      </ul>
     </div>
   );
 }

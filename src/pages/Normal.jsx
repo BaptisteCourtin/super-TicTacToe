@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Board } from "../components/Board";
+import { NormalBoard } from "../components/NormalBoard";
 import { Score } from "../components/Score";
 
 function Normal() {
@@ -20,14 +20,14 @@ function Normal() {
 
   const [xPlaying, setXPlaying] = useState(true);
 
-  const [congrats, setCongrats] = useState();
+  const [congrats, setCongrats] = useState("");
   const [scores, setScores] = useState({ xScore: 0, oScore: 0 });
 
   const [board, setBoard] = useState(Array(9).fill(null));
   const [gameOver, setGameOver] = useState(false);
 
   // à chaque fois qu'une petite box est cliqué
-  const handleBoxClick = (board, boxIdx) => {
+  const handleBoxClick = (boxIdx) => {
     const updatedBoard = board.map((value, idx) => {
       if (idx === boxIdx) {
         return xPlaying ? "X" : "O";
@@ -99,7 +99,7 @@ function Normal() {
       <Score scores={scores} xPlaying={xPlaying} />
 
       <section className={`normal-board ${gameOver ? "over" : ""}`}>
-        <Board board={board} handleBoxClick={handleBoxClick} />
+        <NormalBoard board={board} handleBoxClick={handleBoxClick} />
       </section>
 
       <p className="congrats">{congrats}</p>
