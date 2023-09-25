@@ -96,7 +96,7 @@ function Normal() {
   return (
     <div className="normal">
       <h1>NORMAL Tic Tac Toe</h1>
-      <Score scores={scores} xPlaying={xPlaying} />
+      <Score scores={scores} xPlaying={xPlaying} easy={true} />
 
       <section className={`normal-board ${gameOver ? "over" : ""}`}>
         <NormalBoard board={board} handleBoxClick={handleBoxClick} />
