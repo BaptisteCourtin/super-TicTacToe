@@ -51,6 +51,12 @@ function Details() {
           If the next move is on a board that is already complete, every boards
           will be availables.
         </li>
+        <li>
+          If you play with the timer, the timer will start at the first action.
+        </li>
+        <li>
+          If you pause the timer, the timer will restart at the next action.
+        </li>
       </ul>
     </div>
   );

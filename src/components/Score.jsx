@@ -9,6 +9,7 @@ export const Score = ({
   pauseThisTimer,
   timerEnded,
   noTimer,
+  timeTimer,
 
   easy,
 }) => {
@@ -24,6 +25,7 @@ export const Score = ({
             restartAllTimer={restartAllTimer}
             pauseThisTimer={pauseThisTimer}
             timerEnded={timerEnded}
+            timeTimer={timeTimer}
           />
         )}
       </span>
@@ -35,6 +37,7 @@ export const Score = ({
             restartAllTimer={restartAllTimer}
             pauseThisTimer={!pauseThisTimer}
             timerEnded={timerEnded}
+            timeTimer={timeTimer}
           />
         )}
       </span>

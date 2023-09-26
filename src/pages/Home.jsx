@@ -25,6 +25,7 @@ function Home() {
   const [pauseAllTimer, setPauseAllTimer] = useState(true);
   const [restartAllTimer, setRestartAllTimer] = useState(false);
   const [noTimer, setNoTimer] = useState(false);
+  const [timeTimer, setTimeTimer] = useState(600);
 
   // ---
 
@@ -55,7 +56,7 @@ function Home() {
       }
     });
 
-    // pour vérifier si au moins valeur du board n'est pas null
+    // pour vérifier si au moins une valeur du board n'est pas null
     let isNotFull = myBigBoard[boxIdx].some((each) => each === null); // true si au moins une valeur null
     if (!isNotFull) {
       boxIdx = 100;
@@ -70,6 +71,8 @@ function Home() {
 
     checkBoardFinish(boardIdx, updatedBoard);
 
+    // active le timer du joueur et désactive celui qui vient de jouer
+    // si début ou pause => lance le timer
     setPauseThisTimer(!pauseThisTimer);
   };
 
@@ -185,6 +188,7 @@ function Home() {
         pauseThisTimer={pauseThisTimer}
         timerEnded={timerEnded}
         noTimer={noTimer}
+        timeTimer={timeTimer}
       />
 
       <section className="all-boards">
@@ -204,31 +208,45 @@ function Home() {
 
       <p className="congrats">{congrats}</p>
 
-      <div>
-        {nextBoardId === 100 && (
-          <button onClick={() => funcSetNoTimer()}>
-            {noTimer ? "timer" : "no timer"}
-          </button>
-        )}
+      <div className="all-butt">
+        <div className="timer-butt">
+          {nextBoardId === 100 && (
+            <button onClick={() => funcSetNoTimer()}>
+              {noTimer ? "timer" : "no timer"}
+            </button>
+          )}
 
-        {!noTimer && (
-          <button onClick={() => setPauseAllTimer(!pauseAllTimer)}>
-            pause
+          {!noTimer && (
+            <button onClick={() => setPauseAllTimer(!pauseAllTimer)}>
+              pause
+            </button>
+          )}
+        </div>
+
+        <div className="timeTimer">
+          {!noTimer && (
+            <button onClick={() => setTimeTimer(600)}>normal : 10min</button>
+          )}
+          {!noTimer && (
+            <button onClick={() => setTimeTimer(300)}>fast : 5min</button>
+          )}
+          {!noTimer && (
+            <button onClick={() => setTimeTimer(120)}>blitz : 2min</button>
+          )}
+        </div>
+
+        <section className="all-reset">
+          <button className="reset-btn" onClick={() => resetScore()}>
+            Reset Scores
           </button>
-        )}
+          <button
+            className="reset-btn"
+            onClick={() => setResetAllBoard(!resetAllBoard)}
+          >
+            Reset Board
+          </button>
+        </section>
       </div>
-
-      <section className="all-reset">
-        <button className="reset-btn" onClick={() => resetScore()}>
-          Reset Score
-        </button>
-        <button
-          className="reset-btn"
-          onClick={() => setResetAllBoard(!resetAllBoard)}
-        >
-          Reset Board
-        </button>
-      </section>
     </div>
   );
 }

@@ -16,26 +16,80 @@
     font-size: 2rem;
   }
 
-  .all-reset {
+  .all-butt {
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
 
-    margin: 2rem auto;
+    margin: 2rem;
 
-    .reset-btn {
-      border: none;
-      border-radius: 0.5rem;
-      padding: 0.5rem 1rem;
+    .timer-butt {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
 
-      background-color: var(--button);
-      color: var(--background);
+      button {
+        border: none;
+        border-radius: 0.5rem;
+        padding: 0.5rem 1rem;
 
-      font-size: 1.2rem;
-      font-weight: 700;
+        background-color: var(--button2);
+        color: var(--background);
 
-      &:hover {
-        background-color: var(--buttonHover);
+        font-size: 1.2rem;
+        font-weight: 700;
+
+        &:hover {
+          background-color: var(--buttonHover2);
+        }
+      }
+    }
+
+    .timeTimer {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+
+      button {
+        border: none;
+        border-radius: 0.5rem;
+        padding: 0.5rem 1rem;
+
+        background-color: var(--button3);
+        color: var(--background);
+
+        font-size: 1.2rem;
+        font-weight: 700;
+
+        &:hover {
+          background-color: var(--buttonHover3);
+        }
+      }
+    }
+
+    .all-reset {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+
+      margin-top: 1rem;
+
+      .reset-btn {
+        border: none;
+        border-radius: 0.5rem;
+        padding: 0.5rem 1rem;
+
+        background-color: var(--button);
+        color: var(--background);
+
+        font-size: 1.2rem;
+        font-weight: 700;
+
+        &:hover {
+          background-color: var(--buttonHover);
+        }
       }
     }
   }

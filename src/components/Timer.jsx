@@ -6,9 +6,10 @@ const Timer = ({
   restartAllTimer,
   pauseThisTimer,
   timerEnded,
+  timeTimer,
 }) => {
   const expiryTimestamp = new Date();
-  expiryTimestamp.setSeconds(expiryTimestamp.getSeconds() + 600);
+  expiryTimestamp.setSeconds(expiryTimestamp.getSeconds() + timeTimer);
 
   const { seconds, minutes, start, pause, resume, restart } = useTimer({
     expiryTimestamp,
@@ -21,10 +22,10 @@ const Timer = ({
 
   useEffect(() => {
     const time = new Date();
-    time.setSeconds(time.getSeconds() + 600);
+    time.setSeconds(time.getSeconds() + timeTimer);
     restart(time);
     pause();
-  }, [restartAllTimer]);
+  }, [restartAllTimer, timeTimer]);
 
   useEffect(() => {
     if (pauseThisTimer) {
